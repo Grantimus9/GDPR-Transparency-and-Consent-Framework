@@ -104,6 +104,8 @@ Learn more about IAB Europe here: [https://www.iabeurope.eu/](https://www.iabeur
 
 ## Version History <a name="Version-History"></a>
 
+2019/12/06 - Version 1.1 Updated with global cookie support notes
+
 2018/04/24 - Version 1.1 final publication
 
 2018/03/08 - Version 1.1 published for 30-day public comment
@@ -175,7 +177,7 @@ In this file, the use of the term "AdServers" is representative of the type of d
 
 ## What is the process of getting on the global vendor list? <a name="process-vendorlist"></a>
 
-Access [http://advertisingconsent.eu/](http://advertisingconsent.eu/) to register on the global vendor list. Registration guidelines are available on this website as well.
+Access [iabeurope.eu/join-the-tcf/](https://iabeurope.eu/join-the-tcf/) to register on the global vendor list. Registration guidelines are available on this website as well.
 
 ## What is the format of the global vendor (and standard purposes) list? <a name="format-vendorlist"></a>
 
@@ -220,7 +222,7 @@ The JSON format is:
 
 ## What are the purposes and features being supported? <a name="purposes-features"></a>
 
-The entries below are valid for the v1.1 release. Purposes and features are subject to change, so are included in the Global Vendor List. For most up-to-date policy defined purposes, please refer to [http://advertisingconsent.eu/#resources](http://advertisingconsent.eu/#resources). 
+The entries below are valid for the v1.1 release. Purposes and features are subject to change, so are included in the Global Vendor List. For most up-to-date policy defined purposes, please refer to [iabeurope.eu/tcf/](https://iabeurope.eu/transparency-consent-framework/). 
 
 Purposes are individually-consentable data uses. Due to space constraints in the consent string, they are not consentable on a per-vendor basis, but which vendors utilize which purpose should be shown in the UI for each vendor. Consent for a purpose applies only to vendors that have declared (via the Global Vendor List) that they use that purpose.
 
@@ -234,29 +236,28 @@ Features are informational and should be shown on the UI as a data use by that v
   </tr>
   <tr>
     <td>1</td>
-    <td>Storage and access of information </td>
-    <td>The storage of information, or access to information that is already stored, on user device such as accessing advertising identifiers and/or other device identifiers, and/or using cookies or similar technologies.</td>
+    <td>Information storage and access</td>
+    <td>The storage of information, or access to information that is already stored, on your device such as advertising identifiers, device identifiers, cookies, and similar technologies.</td>
   </tr>
   <tr>
     <td>2</td>
     <td>Personalisation</td>
-    <td>The collection and processing of information about user of a site to subsequently personalize advertising for them in other contexts, i.e. on other sites or apps, over time. Typically, the content of the site or app is used to make inferences about user interests, which inform future selections.</td>
+    <td>The collection and processing of information about your use of this service to subsequently personalise advertising and/or content for you in other contexts, such as on other websites or apps, over time. Typically, the content of the site or app is used to make inferences about your interests, which inform future selection of advertising and/or content.</td>
   </tr>
   <tr>
     <td>3</td>
-    <td>Ad selection, reporting and delivery</td>
-    <td>The collection of information and combination with previously collected information, to select and deliver advertisements and to measure the delivery and effectiveness of such advertisements. This includes using previously collected information about user interests to select ads, processing data about what advertisements were shown, how often they were shown, when and where they were shown, and whether they took any action related to the advertisement, including for example clicking an ad or making a purchase.</td>
+    <td>Ad selection, delivery, reporting</td>
+    <td>The collection of information, and combination with previously collected information, to select and deliver advertisements for you, and to measure the delivery and effectiveness of such advertisements. This includes using previously collected information about your interests to select ads, processing data about what advertisements were shown, how often they were shown, when and where they were shown, and whether you took any action related to the advertisement, including for example clicking an ad or making a purchase. This does not include personalisation, which is the collection and processing of information about your use of this service to subsequently personalise advertising and/or content for you in other contexts, such as websites or apps, over time.</td>
   </tr>
   <tr>
     <td>4</td>
-    <td>Content delivery, selection and reporting</td>
-    <td>The collection of information, and combination with previously collected information, to select and deliver content and to measure the delivery and effectiveness of such content. This includes using previously collected information about user interests to select content, processing data about what content was shown, how often or how long it was shown, when and where it was shown, and whether they took any action related to the content, including for example clicking on content. 
-</td>
+    <td>Content selection, delivery, reporting</td>
+    <td>The collection of information, and combination with previously collected information, to select and deliver content for you, and to measure the delivery and effectiveness of such content. This includes using previously collected information about your interests to select content, processing data about what content was shown, how often or how long it was shown, when and where it was shown, and whether the you took any action related to the content, including for example clicking on content. This does not include personalisation, which is the collection and processing of information about your use of this service to subsequently personalise content and/or advertising for you in other contexts, such as websites or apps, over time.</td>
   </tr>
   <tr>
     <td>5</td>
     <td>Measurement</td>
-    <td>The collection of information about user use of content, and combination with previously collected information, used to measure, understand, and report on user usage of content.</td>
+    <td>The collection of information about your use of the content, and combination with previously collected information, used to measure, understand, and report on your usage of the service. This does not include personalisation, the collection of information about your use of this service to subsequently personalise content and/or advertising for you in other contexts, i.e. on other service, such as websites or apps, over time.</td>
   </tr>
   <tr>
     <td>feature number</td>
@@ -266,17 +267,17 @@ Features are informational and should be shown on the UI as a data use by that v
   <tr>
     <td>1</td>
     <td>Matching Data to Offline Sources</td>
-    <td>combining data from offline sources that were initially collected in other contexts</td>
+    <td>Combining data from offline sources that were initially collected in other contexts.</td>
   </tr>
   <tr>
     <td>2</td>
     <td>Linking Devices</td>
-    <td>allow processing of a user's data to connect such user across multiple devices.</td>
+    <td>Allow processing of a user's data to connect such user across multiple devices.</td>
   </tr>
   <tr>
     <td>3</td>
     <td>Precise Geographic Location Data</td>
-    <td>allow processing of a user's precise geographic location data in support of a purpose for which that certain third party has consent.</td>
+    <td>Allow processing of a user's precise geographic location data in support of a purpose for which that certain third party has consent.</td>
   </tr>
 </table>
 
@@ -316,6 +317,9 @@ Features are informational and should be shown on the UI as a data use by that v
   </tr>
 </table>
 
+## Global Cookie Storage Update (December 2019)
+- All requests that read from or write to the global cookie in the consensu.org domain must be secured by HTTPS
+- Additionally, browser cookie policies may require the support of certain attributes (e.g. sameSite, Secure)
 
 ## Vendor Consent String Format <a name="vendor-consent-string-format"></a>
 

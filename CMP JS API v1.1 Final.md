@@ -12,7 +12,7 @@
 5. [Disclaimer](#Disclaimer)
 6. [About IAB Tech Lab](#About-Tech-Lab)
 7. [About IAB Europe](#About-IAB-Europe)
-8. [CMP JS API v1.1](#CMP-JS-API) 
+8. [CMP JS API v1.1](#CMP-JS-API)
 9. [Version History](#Version-History)
 10. [What is supported by this API?](#supported-API)
 11. [What API will need to be provided by the CMP?](#API-provided)
@@ -30,7 +30,7 @@
 23. [Without safeFrames, using postMessage](#postmessage)
 24. [Where will the API retrieve the vendor consent information from?](#retrieve)
 25. [How will the API prioritize the service-specific and the global cookies?](#prioritize)
-26. [Major-changes](#major-changes) 
+26. [Major-changes](#major-changes)
 
 # Introduction <a name="Introduction"></a>
 
@@ -41,14 +41,14 @@ In February 2017, the IAB Europe assembled parties representing both the supply,
 The scope of the technical working group's initiative increased to include a technical industry solution to allow website operators to:
 1. Control the vendors they wish to allow to access their users' browsers (for setting and reading cookies) and process their personal data and disclose these choices to other parties in the online advertising ecosystem
 2. Seek user consent under the ePrivacy Directive (for setting cookies or similar technical applications that access information on a device) and/or the GDPR in line with applicable legal requirements and signal the consent status through the online advertising ecosystem
- 
+
 In summary, have one place to go to:
 
 * Understand privacy-related disclosures about those vendors
 
 * Use those disclosures to make privacy-related disclosures to its users
 
-* Disseminate the disclosure status through the online advertising ecosystem. 
+* Disseminate the disclosure status through the online advertising ecosystem.
 
 The various pieces of the Framework are the following:
 
@@ -64,11 +64,11 @@ The various pieces of the Framework are the following:
 
 ## About the Transparency & Consent Standard <a name="About-the-standard"></a>
 
-Resources including policy FAQ, Global Vendor List Registration, and CMP registration can be found at [advertisingconsent.eu](http://advertisingconsent.eu/).
+Resources including policy FAQ, Global Vendor List Registration, and CMP registration can be found at [iabeurope.eu/tcf](https://iabeurope.eu/transparency-consent-framework/).
 
-For purposes of this documentation, the following terms have the following definitions: 
+For purposes of this documentation, the following terms have the following definitions:
 
-* "**_CMP_**" means a company that can read the vendors chosen by a website operator and the consent status of an end user (either service specific (through a first-party cookie) or global (through a third-party cookie)). A CMP is not synonymous with a company that surfaces the user interface to a user (although it can be the same).   
+* "**_CMP_**" means a company that can read the vendors chosen by a website operator and the consent status of an end user (either service specific (through a first-party cookie) or global (through a third-party cookie)). A CMP is not synonymous with a company that surfaces the user interface to a user (although it can be the same).
 
 * "**_Purposes_**" mean the purposes for which a Controller enabled by a website operator is using personal data collected from (or received by a third party) about an end user.
 
@@ -99,7 +99,7 @@ Learn more about IAB Tech Lab here: [https://www.iabtechlab.com/](https://www.ia
 ## About IAB Europe <a name="About-IAB-Europe"></a>
 
 IAB Europe is the voice of digital business and the leading European-level industry association for the interactive advertising ecosystem. Its mission is to promote the development of this innovative sector by shaping the regulatory environment, investing in research and education, and developing and facilitating the uptake of business standards.
- 
+
 Learn more about IAB Europe here: [https://www.iabeurope.eu/](https://www.iabeurope.eu/)
 
 
@@ -182,7 +182,7 @@ The consent will be returned false ("No Consent") for any invalid vendorId. The 
     <td>getVendorList</td>
     <td>vendorListVersion (scalar)</td>
     <td>Callback(GlobalVendorList object, success:boolean)</td>
-    <td>The callback function will be called with the GlobalVendorList parameter being the vendor list object of the requested version. 
+    <td>The callback function will be called with the GlobalVendorList parameter being the vendor list object of the requested version.
 If the vendorListVersion is null, the vendor list for the VendorListVersion in the current consent string is returned. If no consent string value is currently set, the latest version of the vendor list is returned. If the vendorListVersion value is "LATEST", the latest version available is returned.
 If the vendorListVersion is invalid, the callback function will be called with 'null' as the first argument and false as the success argument.
 The boolean success parameter passed to the callback indicates whether the call to getVendorList() was successful.
@@ -198,7 +198,7 @@ The boolean success parameter passed to the callback indicates whether the call 
 This object contains the global purposes, and vendors, consented to by the user:
 
 ```
-{ 
+{
 
   metadata: [base64url-encoded](https://tools.ietf.org/html/rfc4648#section-5) string (header data from the vendor consent format, as described below),
 
@@ -214,9 +214,9 @@ This object contains the global purposes, and vendors, consented to by the user:
 
   },
 
-  vendorConsents: { 
+  vendorConsents: {
 
-    *vendorId* : *consentBoolean*, 
+    *vendorId* : *consentBoolean*,
 
     ?
 
@@ -250,7 +250,7 @@ This object contains the entire [base64url-encoded](https://tools.ietf.org/html/
 ```
 {
 
-	consentData:  [base64url-encoded](https://tools.ietf.org/html/rfc4648#section-5) encoded string,		
+	consentData:  [base64url-encoded](https://tools.ietf.org/html/rfc4648#section-5) encoded string,
 
 	gdprApplies:  *Boolean*,
 
@@ -265,7 +265,7 @@ This object contains the entire [base64url-encoded](https://tools.ietf.org/html/
 This object contains the publisher-specific (both global and custom) purposes consented to:
 
 ```
-{  
+{
 
   metadata: [base64url-encoded](https://tools.ietf.org/html/rfc4648#section-5) encoded string in the publisher consent format,
 
@@ -348,38 +348,36 @@ This code should be as close-to-top as possible in the header. The tag also incl
 
 If immutable-version URL's are used for cmp.js, [a subresource integrity attribute](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) should be provided by the CMP and used.
 
-```
-<script type="text/javascript" src="https://my-cmp.mgr.consensu.org/cmp.js" async="true"></script>
-
-<script type="text/javascript">
-
+```javascript
 (function() {
 
   var gdprAppliesGlobally = false;
+  var win = window;
+  var doc = document;
 
   function addFrame() {
 
-    if (!window.frames['__cmpLocator']) {
+    if (!win.frames['__cmpLocator']) {
 
-      if (document.body) {
+      if (doc.body) {
 
-        var body = document.body,
+        var body = doc.body;
 
-            iframe = document.createElement('iframe');
+        var iframe = doc.createElement('iframe');
 
-        iframe.style = 'display:none';
+        iframe.style.cssText = 'display:none';
 
         iframe.name = '__cmpLocator';
 
         body.appendChild(iframe);
 
-	 } else {
+      } else {
 
-        // In the case where this stub is located in the head,
-
-        // this allows us to inject the iframe more quickly than
-
-        // relying on DOMContentLoaded or other events.
+        /**
+         * In the case where this stub is located in the head, this allows us to
+         * inject the iframe more quickly than relying on DOMContentLoaded or
+         * other events.
+         */
 
         setTimeout(addFrame, 5);
 
@@ -397,17 +395,19 @@ If immutable-version URL's are used for cmp.js, [a subresource integrity attribu
 
     __cmp.a = __cmp.a || [];
 
-    if (!b.length) return __cmp.a;
+    if (!b.length) {
 
-    else if (b[0] === 'ping') {
+      return __cmp.a;
 
-      b[2]({"gdprAppliesGlobally": gdprAppliesGlobally,
+    } else if (b[0] === 'ping') {
 
-        "cmpLoaded": false}, true);
+      b[2]({
+        'gdprAppliesGlobally': gdprAppliesGlobally,
 
-    }
+        'cmpLoaded': false,
+      }, true);
 
-    else {
+    } else {
 
       __cmp.a.push([].slice.apply(b));
 
@@ -417,52 +417,60 @@ If immutable-version URL's are used for cmp.js, [a subresource integrity attribu
 
   function cmpMsgHandler(event) {
 
-    var msgIsString = typeof event.data === "string";
+    var msgIsString = typeof event.data === 'string';
 
-    var json = msgIsString ? JSON.parse(event.data) : event.data;
+    try {
 
-    if (json.__cmpCall) {
+      var json = msgIsString ? JSON.parse(event.data) : event.data;
 
-      var i = json.__cmpCall;
+      if (json.__cmpCall) {
 
-      window.__cmp(i.command, i.parameter, function(retValue, success) {
+        var i = json.__cmpCall;
 
-        var returnMsg = {"__cmpReturn": {
+        win.__cmp(i.command, i.parameter, function(retValue, success) {
 
-          "returnValue": retValue,
+          var returnMsg = {
+            '__cmpReturn': {
 
-          "success": success,
+              'returnValue': retValue,
 
-        	"callId": i.callId
+              'success': success,
 
-        }};
+              'callId': i.callId,
 
-        event.source.postMessage(msgIsString ?
+            },
+          };
 
-          JSON.stringify(returnMsg) : returnMsg, '*');
+          event.source.postMessage(msgIsString ? JSON.stringify(returnMsg) : returnMsg, '*');
 
-      });
+        });
 
-    }
+      }
+
+    } catch (ignore) {/* Ignore messages we don't recognize */}
 
   }
 
   if (typeof (__cmp) !== 'function') {
 
-    window.__cmp = stubCMP;
+    win.__cmp = stubCMP;
 
     __cmp.msgHandler = cmpMsgHandler;
 
-    if (window.addEventListener)
-
-      window.addEventListener('message', cmpMsgHandler, false);
-
-    else window.attachEvent('onmessage', cmpMsgHandler);
+    win.addEventListener('message', cmpMsgHandler, false);
 
   }
 
 })();
 
+</script>
+```
+
+A minified version of the above script tag is provided below.
+
+```
+<script type="text/javascript">
+(function(){var e=false;var c=window;var t=document;function r(){if(!c.frames["__cmpLocator"]){if(t.body){var a=t.body;var e=t.createElement("iframe");e.style.cssText="display:none";e.name="__cmpLocator";a.appendChild(e)}else{setTimeout(r,5)}}}r();function p(){var a=arguments;__cmp.a=__cmp.a||[];if(!a.length){return __cmp.a}else if(a[0]==="ping"){a[2]({gdprAppliesGlobally:e,cmpLoaded:false},true)}else{__cmp.a.push([].slice.apply(a))}}function l(t){var r=typeof t.data==="string";try{var a=r?JSON.parse(t.data):t.data;if(a.__cmpCall){var n=a.__cmpCall;c.__cmp(n.command,n.parameter,function(a,e){var c={__cmpReturn:{returnValue:a,success:e,callId:n.callId}};t.source.postMessage(r?JSON.stringify(c):c,"*")})}}catch(a){}if(typeof __cmp!=="function"){c.__cmp=p;__cmp.msgHandler=l;c.addEventListener("message",l,false)}}})();
 </script>
 ```
 
@@ -475,7 +483,7 @@ Two methods are available, depending if publisher implements IAB safeFrames or n
 safeFrame can be used to proxy calls to __cmp(). No changes are required for the CMP, apart from implementing the [proposed local API](#heading=h.m458abg1kvs4) above. An updated safeFrame implementation/specification will provide the method $sf.ext.cmp(command, parameter), where vendors can initiate the cmp request flow identically to calling __cmp() on the main page/frame. The only difference for the vendor is the callback argument not being necessary, since safeFrame already provides a callback mechanism. For the publisher, safeFrame will handle all the messaging and tracking of which iframe made the request.
 
 Vendors already supporting safeFrames should add the following sample changes to their existing implementation:
- 
+
  ```
  function sf_callback(msgName, data){
     // existing code that process other msgNames
@@ -498,7 +506,7 @@ Vendors already supporting safeFrames should add the following sample changes to
 
 ### Without safeFrames, using postMessage <a name="postmessage"></a>
 
-The [postMessage()](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) function can be used from an iframe to send calls to an parent's (or ancestor's) frame's __cmp() function. The frame to send the postMessage to can be determined by the ancestor with a .frames["__cmpLocator"] child iframe present. 
+The [postMessage()](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) function can be used from an iframe to send calls to an parent's (or ancestor's) frame's __cmp() function. The frame to send the postMessage to can be determined by the ancestor with a .frames["__cmpLocator"] child iframe present.
 
 CMP tags will install an event handler to call __cmp() for postMessage events, returning the data via a postMessage* *event. This is included as part of the [publisher-included tag above](#heading=h.dx2gmec9b7bh), so that postMessage events can be handled as early as possible.
 
@@ -506,32 +514,32 @@ The sent message should have the below form where "*command*" and *parameter* ar
 
 ```
 {
-  __cmpCall: 
+  __cmpCall:
   {
-    command: "*command*", 
-    parameter: *parameter*, 
+    command: "*command*",
+    parameter: *parameter*,
     callId: *uniqueId*
   }
 }
 ```
-   
+
 
 and the returned message (event.data) will have the below form where returnValue and success are the two parameters passed to the callback function, and the same value of callId that was sent:
 
 ```
 {
-  __cmpReturn: 
+  __cmpReturn:
   {
-     returnValue: *returnValue*, 
-     success: *boolean*, 
+     returnValue: *returnValue*,
+     success: *boolean*,
      callId: *uniqueId*
    }
-} 
+}
  ```
 
 Below is a wrapper function that emulates the in-frame __cmp() call. It locates the ancestor frame running the CMP, performs the postMessage and listens for the return message and passes its values to the callback:
 
- 
+
 ```
 // find the CMP frame
 
@@ -555,7 +563,7 @@ while(!cmpFrame) {
 
 var cmpCallbacks = {}
 
-/* Set up a __cmp function to do the postMessage and 
+/* Set up a __cmp function to do the postMessage and
 
    stash the callback.
 
@@ -686,4 +694,3 @@ The service-specific cookie consents will override the global consent cookie, if
 10. 2018-04-12: parameter wording change of "cookieVersion" -> "consentStringVersion" (no functional change)
 
 11. 2018-04-13: renamed "_cmp_" frame to "__cmpLocator"
-
